@@ -22,7 +22,8 @@ function Post({ frontmatter, body }) {
 }
 
 export async function getStaticProps({ params }) {
-  const { frontmatter, body } = await postForSlug(params.post);
+  console.log('************************** Post', params);
+  const { frontmatter, body } = await postForSlug(params.post.join('/'));
 
   return {
     props: {
@@ -34,6 +35,8 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const paths = postSlugs().map((slug) => `/blog/${slug}`);
+
+  console.log('************************** getStaticPaths', paths);
 
   return {
     paths,

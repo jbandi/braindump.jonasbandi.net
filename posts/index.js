@@ -7,7 +7,9 @@ export const posts = () =>
 
     return keys
       .map((key, index) => {
-        const slug = key.replace(/^.*[\\\/]/, "").slice(0, -3);
+        // const slug = key.replace(/^.*[\\\/]/, "").slice(0, -3);
+        const slug = key.replace(/^.\//, "").slice(0, -3);
+        console.log('************************** Slug', slug);
         const document = documents[index];
         const { data: frontmatter, content: body } = matter(document.default);
 
@@ -21,12 +23,18 @@ export const posts = () =>
 
 export const postSlugs = () =>
   ((context) => {
-    return context
+    console.log('************************** Keys', context.keys());
+    let slugs = context
       .keys()
-      .map((key) => key.replace(/^.*[\\\/]/, "").slice(0, -3));
+      // .map((key) => key.replace(/^.*[\\\/]/, "").slice(0, -3));
+      .map((key) => key.replace(/^.\//, "").slice(0, -3));
+
+    console.log('************************** Slugs', slugs);
+    return slugs;
   })(require.context("./", true, /\.md$/));
 
 export const postForSlug = async (slug) => {
+  console.log('************************** postForSlug', slug);
   const document = await import(`./${slug}.md`);
   const { data: frontmatter, content: body } = matter(document.default);
 

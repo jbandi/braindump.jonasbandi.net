@@ -7,7 +7,7 @@
     "build": "next build && npm run copyimages",
     "export": "next export",
     "start": "next start",
-    "copyimages": "copyfiles -u 1 posts/**/*.png public/blog"
+    "copyimages": "copyfiles \"posts/**/*.png\" public/blog -V -u 1 "
   },
   "dependencies": {
     "@iconify/icons-simple-icons": "^1.0.55",
